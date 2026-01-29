@@ -64,8 +64,8 @@
                 <span class="icon">📈</span>
                 <span class="gold-gradient">Gold</span> リアルタイム
             </h2>
-            <div class="tradingview-widget-container" style="height: 400px;">
-                <div id="tradingview_gold" style="height: 100%;"></div>
+            <div class="tradingview-widget-container" style="width: 100%; height: 500px;">
+                <div id="tradingview_gold" style="height: 100%; width: 100%;"></div>
             </div>
         </div>
 
@@ -75,8 +75,8 @@
                 <span class="icon">📈</span>
                 <span class="silver-gradient">Silver</span> リアルタイム
             </h2>
-            <div class="tradingview-widget-container" style="height: 400px;">
-                <div id="tradingview_silver" style="height: 100%;"></div>
+            <div class="tradingview-widget-container" style="width: 100%; height: 500px;">
+                <div id="tradingview_silver" style="height: 100%; width: 100%;"></div>
             </div>
         </div>
     </div>
@@ -192,8 +192,9 @@ new TradingView.widget({
     "enable_publishing": false,
     "hide_top_toolbar": false,
     "save_image": false,
-    "height": "100%",
-    "width": "100%"
+    "height": 500,
+    "width": "100%",
+    "autosize": false
 });
 
 // シルバーチャート
@@ -209,8 +210,9 @@ new TradingView.widget({
     "enable_publishing": false,
     "hide_top_toolbar": false,
     "save_image": false,
-    "height": "100%",
-    "width": "100%"
+    "height": 500,
+    "width": "100%",
+    "autosize": false
 });
 </script>
 {% endblock %}

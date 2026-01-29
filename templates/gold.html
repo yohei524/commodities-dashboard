@@ -49,8 +49,8 @@
             <span class="icon">📈</span>
             リアルタイムチャート
         </h2>
-        <div class="tradingview-widget-container" style="height: 500px;">
-            <div id="tradingview_gold" style="height: 100%;"></div>
+        <div class="tradingview-widget-container" style="width: 800px; height: 600px; margin: 0 auto;">
+            <div id="tradingview_gold" style="height: 100%; width: 100%;"></div>
         </div>
     </div>
 
@@ -139,8 +139,9 @@ new TradingView.widget({
     "enable_publishing": false,
     "hide_top_toolbar": false,
     "save_image": false,
-    "height": "100%",
-    "width": "100%"
+    "height": 600,
+    "width": 800,
+    "autosize": false
 });
 </script>
 {% endblock %}
