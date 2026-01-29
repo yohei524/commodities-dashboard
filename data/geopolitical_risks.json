@@ -1,0 +1,83 @@
+{
+  "overall_index": 78,
+  "overall_level": "high",
+  "overall_label": "HIGH RISK",
+  "avg_30d": 72,
+  "avg_90d": 68,
+  "regions": [
+    {
+      "name": "中東（イラン-イスラエル）",
+      "level": "critical",
+      "label": "CRITICAL",
+      "index": 92,
+      "summary": "イスラエルとイランの緊張が継続。原油・金価格に直接影響。フーシ派による紅海攻撃も継続中。"
+    },
+    {
+      "name": "ウクライナ-ロシア",
+      "level": "high",
+      "label": "HIGH",
+      "index": 75,
+      "summary": "膠着状態が続くも、ロシアの新たな攻勢の兆し。エスカレーションリスクあり。"
+    },
+    {
+      "name": "台湾海峡",
+      "level": "high",
+      "label": "HIGH",
+      "index": 70,
+      "summary": "中国の軍事演習増加。米国の台湾支援強化。半導体供給リスクに注意。"
+    },
+    {
+      "name": "日本政治",
+      "level": "medium",
+      "label": "MEDIUM",
+      "index": 55,
+      "summary": "高市政権の防衛政策強化。防衛予算増額が軍需株に追い風。"
+    },
+    {
+      "name": "北朝鮮",
+      "level": "medium",
+      "label": "MEDIUM",
+      "index": 60,
+      "summary": "ミサイル発射継続。核開発の進展が懸念される。"
+    },
+    {
+      "name": "南シナ海",
+      "level": "medium",
+      "label": "MEDIUM",
+      "index": 58,
+      "summary": "フィリピンとの摩擦。航行の自由作戦継続。"
+    }
+  ],
+  "news": [
+    {
+      "date": "2026-01-28",
+      "region": "中東",
+      "title": "イスラエル、レバノン国境で軍事活動活発化",
+      "impact": "high"
+    },
+    {
+      "date": "2026-01-27",
+      "region": "ウクライナ",
+      "title": "ロシア、新たな攻勢開始との報道",
+      "impact": "medium"
+    },
+    {
+      "date": "2026-01-26",
+      "region": "台湾",
+      "title": "中国軍、台湾周辺で大規模演習",
+      "impact": "high"
+    },
+    {
+      "date": "2026-01-25",
+      "region": "日本",
+      "title": "高市首相、防衛予算増額を表明",
+      "impact": "medium"
+    },
+    {
+      "date": "2026-01-24",
+      "region": "中東",
+      "title": "フーシ派、紅海で商船攻撃",
+      "impact": "high"
+    }
+  ]
+}

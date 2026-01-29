@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}算命学分析 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+            <span>🔮</span> 算命学 × 相場分析
+        </h1>
+        <p style="color: var(--text-secondary);">
+            東洋占術の知恵を相場予測に活用する
+        </p>
+    </div>
+
+    <!-- 2026年の運勢 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🐍</span>
+            2026年（丙午年）の概況
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="padding: 20px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 100, 50, 0.1)); border-radius: 12px;">
+                <h3 style="font-weight: 700; margin-bottom: 12px;">
+                    <span class="gold-gradient">丙午（ひのえうま）</span>の特徴
+                </h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    丙（火の兄）と午（火）の組み合わせ。火の気が極めて強い年。
+                    活発な動き、急激な変化、感情的な高まりを示唆。
+                    相場では「急騰・急落」「ボラティリティの高さ」が特徴となりやすい。
+                </p>
+            </div>
+            <div class="grid grid-3">
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--gold); border-radius: 12px;">
+                    <p style="font-size: 2rem;">🔥</p>
+                    <p style="font-weight: 700; color: var(--gold);">火の年</p>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">活発・急激・情熱</p>
+                </div>
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--silver); border-radius: 12px;">
+                    <p style="font-size: 2rem;">⚡</p>
+                    <p style="font-weight: 700; color: var(--silver);">変動の年</p>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">ボラ高・転換点</p>
+                </div>
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--danger); border-radius: 12px;">
+                    <p style="font-size: 2rem;">⚔️</p>
+                    <p style="font-weight: 700; color: var(--danger);">緊張の年</p>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">地政学リスク高</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 月別運勢 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📅</span>
+            2026年 月別の気の流れ
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>月</th>
+                    <th>干支</th>
+                    <th>五行</th>
+                    <th>相場への示唆</th>
+                    <th>注目日</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for month in data.months | default([
+                    {'month': '1月', 'eto': '己丑', 'element': '土', 'hint': '安定期。金銀は底堅い動き', 'dates': '1/5(小寒), 1/20(大寒)'},
+                    {'month': '2月', 'eto': '庚寅', 'element': '金/木', 'hint': '木が金を剋す。金価格は調整の可能性', 'dates': '2/4(立春), 2/19(雨水)'},
+                    {'month': '3月', 'eto': '辛卯', 'element': '金/木', 'hint': '引き続き金は弱め。銀は持ち直しか', 'dates': '3/5(啓蟄), 3/20(春分)'},
+                    {'month': '4月', 'eto': '壬辰', 'element': '水/土', 'hint': '水が火を制す。緊張緩和の兆し', 'dates': '4/4(清明), 4/20(穀雨)'},
+                    {'month': '5月', 'eto': '癸巳', 'element': '水/火', 'hint': '水火の対立。相場は乱高下', 'dates': '5/5(立夏), 5/21(小満)'},
+                    {'month': '6月', 'eto': '甲午', 'element': '木/火', 'hint': '火勢強まる。金銀上昇トレンド', 'dates': '6/5(芒種), 6/21(夏至)'},
+                    {'month': '7月', 'eto': '乙未', 'element': '木/土', 'hint': '土用期間。慎重な姿勢が吉', 'dates': '7/7(小暑), 7/22(大暑)'},
+                    {'month': '8月', 'eto': '丙申', 'element': '火/金', 'hint': '火が金を剋す。金価格注意', 'dates': '8/7(立秋), 8/23(処暑)'},
+                    {'month': '9月', 'eto': '丁酉', 'element': '火/金', 'hint': '引き続き火が強い。軍需株上昇', 'dates': '9/7(白露), 9/23(秋分)'},
+                    {'month': '10月', 'eto': '戊戌', 'element': '土', 'hint': '土の月。安定、ただし地政学リスク', 'dates': '10/8(寒露), 10/23(霜降)'},
+                    {'month': '11月', 'eto': '己亥', 'element': '土/水', 'hint': '年末に向け調整局面', 'dates': '11/7(立冬), 11/22(小雪)'},
+                    {'month': '12月', 'eto': '庚子', 'element': '金/水', 'hint': '金の月。金銀上昇しやすい', 'dates': '12/7(大雪), 12/21(冬至)'}
+                ]) %}
+                <tr>
+                    <td style="font-weight: 700;">{{ month.month }}</td>
+                    <td><span class="tag tag-gold">{{ month.eto }}</span></td>
+                    <td>{{ month.element }}</td>
+                    <td style="color: var(--text-secondary); font-size: 0.875rem;">{{ month.hint }}</td>
+                    <td style="font-size: 0.8rem; color: var(--text-muted);">{{ month.dates }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 五行と相場 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">☯️</span>
+            五行と相場の関係
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; margin-bottom: 16px; color: var(--gold);">五行相生（そうしょう）</h3>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+                    <p>🌳 <strong>木</strong>は<strong style="color: #DC3545;">火</strong>を生む → 木の月は火（緊張）を助長</p>
+                    <p>🔥 <strong style="color: #DC3545;">火</strong>は<strong style="color: #B8860B;">土</strong>を生む → 火の月は安定をもたらす</p>
+                    <p>⛰️ <strong style="color: #B8860B;">土</strong>は<strong style="color: var(--gold);">金</strong>を生む → 土の月は金価格上昇</p>
+                    <p>🥇 <strong style="color: var(--gold);">金</strong>は<strong style="color: #17A2B8;">水</strong>を生む → 金の月は流動性増加</p>
+                    <p>💧 <strong style="color: #17A2B8;">水</strong>は<strong>木</strong>を生む → 水の月は新たな動き</p>
+                </div>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; margin-bottom: 16px; color: var(--danger);">五行相剋（そうこく）</h3>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+                    <p>🌳 <strong>木</strong>は<strong style="color: #B8860B;">土</strong>を剋す → 不安定化</p>
+                    <p>⛰️ <strong style="color: #B8860B;">土</strong>は<strong style="color: #17A2B8;">水</strong>を剋す → 流動性低下</p>
+                    <p>💧 <strong style="color: #17A2B8;">水</strong>は<strong style="color: #DC3545;">火</strong>を剋す → 緊張緩和</p>
+                    <p>🔥 <strong style="color: #DC3545;">火</strong>は<strong style="color: var(--gold);">金</strong>を剋す → 金価格下落圧力</p>
+                    <p>🥇 <strong style="color: var(--gold);">金</strong>は<strong>木</strong>を剋す → 成長抑制</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 重要人物の命式 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">👤</span>
+            キーパーソンの運勢
+        </h2>
+        <div class="grid grid-2">
+            {% for person in data.persons | default([
+                {'name': '習近平', 'birth': '1953年6月15日', 'element': '癸巳（水火）', 'note': '2026年は火が強まり、水が弱まる。決断を迫られる可能性。台湾問題の動きに注意'},
+                {'name': 'プーチン', 'birth': '1952年10月7日', 'element': '壬辰（水土）', 'note': '丙午年は水を抑える。苦しい立場が続く。長期化傾向'},
+                {'name': 'トランプ', 'birth': '1946年6月14日', 'element': '丙戌（火土）', 'note': '火の人が火の年。力を発揮しやすい。強硬姿勢が目立つ可能性'},
+                {'name': 'ネタニヤフ', 'birth': '1949年10月21日', 'element': '己丑（土）', 'note': '土の人。火の年は土を生む。国内支持は維持されやすい'}
+            ]) %}
+            <div style="padding: 20px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h3 style="font-weight: 700;">{{ person.name }}</h3>
+                    <span class="tag tag-gold">{{ person.element }}</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">{{ person.birth }}</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">{{ person.note }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 注目タイミング -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">⏰</span>
+            2026年 注目タイミング
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            {% for timing in data.timings | default([
+                {'date': '2月4日（立春）', 'level': 'high', 'note': '新年の始まり（算命学）。相場の転換点になりやすい'},
+                {'date': '3月20日（春分）', 'level': 'medium', 'note': '昼夜均等。バランスの日。調整局面入りか'},
+                {'date': '5月5日（立夏）', 'level': 'high', 'note': '火の季節開始。金価格に動き出やすい'},
+                {'date': '6月21日（夏至）', 'level': 'critical', 'note': '陽極まる。地政学的緊張ピークの可能性'},
+                {'date': '7月19日〜8月6日（土用）', 'level': 'high', 'note': '土用期間。大きな決断を避けるべき時'},
+                {'date': '9月23日（秋分）', 'level': 'medium', 'note': '陰陽転換。トレンド転換点'},
+                {'date': '12月21日（冬至）', 'level': 'high', 'note': '陰極まる。来年への転換。金価格上昇しやすい'}
+            ]) %}
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(22, 33, 62, 0.5); border-radius: 8px;">
+                <span class="risk-level {{ timing.level }}">
+                    {% if timing.level == 'critical' %}要注意{% elif timing.level == 'high' %}重要{% else %}注目{% endif %}
+                </span>
+                <div>
+                    <p style="font-weight: 700;">{{ timing.date }}</p>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem;">{{ timing.note }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 私の見解 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--gold);">
+        <h2 class="section-title">
+            <span class="icon">💭</span>
+            私の見解（LINE限定）
+        </h2>
+        <div style="padding: 20px; background: rgba(212, 175, 55, 0.05); border-radius: 12px;">
+            <p style="color: var(--text-primary); line-height: 1.8;">
+                {{ data.my_view | default('2026年丙午年は火の気が極めて強い年。地政学的緊張は避けられず、特に6月の夏至前後は要注意。金・銀は上半期は調整しやすいものの、下半期は上昇トレンドに乗りやすい。軍需株は年間を通じて強い動き。土用期間（7月下旬〜8月上旬）は大きなポジションを避け、秋分以降の上昇局面を狙う戦略が吉。') }}
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}ダッシュボード | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヒーローセクション -->
+    <div class="glass-card gold-border" style="padding: 32px; text-align: center;">
+        <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 8px;">
+            <span class="shimmer">Geopolitics × Commodities</span>
+        </h1>
+        <p style="color: var(--text-secondary);">地政学リスク × コモディティ価格予測ダッシュボード</p>
+    </div>
+
+    <!-- 価格パネル -->
+    <div class="grid grid-4">
+        <!-- ゴールド -->
+        <a href="/gold" class="glass-card price-card gold-border" style="text-decoration: none;">
+            <div class="icon">🥇</div>
+            <div class="label">Gold / グラム</div>
+            <div class="price gold-gradient">¥{{ prices.gold.price_jpy | default('29,815') }}</div>
+            <div class="change {{ 'up' if prices.gold.change_pct | default(0) > 0 else 'down' }}">
+                {% if prices.gold.change_pct | default(0) > 0 %}+{% endif %}{{ prices.gold.change_pct | default('+1.2') }}%
+            </div>
+        </a>
+
+        <!-- シルバー -->
+        <a href="/silver" class="glass-card price-card silver-border" style="text-decoration: none;">
+            <div class="icon">🥈</div>
+            <div class="label">Silver / グラム</div>
+            <div class="price silver-gradient">¥{{ prices.silver.price_jpy | default('644') }}</div>
+            <div class="change {{ 'up' if prices.silver.change_pct | default(0) > 0 else 'down' }}">
+                {% if prices.silver.change_pct | default(0) > 0 %}+{% endif %}{{ prices.silver.change_pct | default('+2.1') }}%
+            </div>
+        </a>
+
+        <!-- WTI原油 -->
+        <a href="/oil" class="glass-card price-card" style="text-decoration: none;">
+            <div class="icon">🛢️</div>
+            <div class="label">WTI Crude / バレル</div>
+            <div class="price" style="color: #D2691E;">${{ prices.oil.price_usd | default('78.50') }}</div>
+            <div class="change {{ 'up' if prices.oil.change_pct | default(0) > 0 else 'down' }}">
+                {% if prices.oil.change_pct | default(0) > 0 %}+{% endif %}{{ prices.oil.change_pct | default('-0.8') }}%
+            </div>
+        </a>
+
+        <!-- 地政学リスク指標 -->
+        <a href="/geopolitics" class="glass-card price-card" style="text-decoration: none;">
+            <div class="icon">🌍</div>
+            <div class="label">地政学リスク指数</div>
+            <div class="price" style="color: var(--danger);">{{ risks.overall_index | default('78') }}</div>
+            <span class="risk-level {{ risks.overall_level | default('high') }}">
+                {{ risks.overall_label | default('HIGH') }}
+            </span>
+        </a>
+    </div>
+
+    <!-- チャートセクション -->
+    <div class="grid grid-2">
+        <!-- ゴールドチャート -->
+        <div class="glass-card" style="padding: 24px;">
+            <h2 class="section-title">
+                <span class="icon">📈</span>
+                <span class="gold-gradient">Gold</span> リアルタイム
+            </h2>
+            <div class="tradingview-widget-container" style="height: 400px;">
+                <div id="tradingview_gold" style="height: 100%;"></div>
+            </div>
+        </div>
+
+        <!-- シルバーチャート -->
+        <div class="glass-card" style="padding: 24px;">
+            <h2 class="section-title">
+                <span class="icon">📈</span>
+                <span class="silver-gradient">Silver</span> リアルタイム
+            </h2>
+            <div class="tradingview-widget-container" style="height: 400px;">
+                <div id="tradingview_silver" style="height: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 地政学リスクマップ -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🗺️</span>
+            地政学リスクマップ
+        </h2>
+        <div class="grid grid-3">
+            {% for region in risks.regions | default([
+                {'name': '中東（イラン-イスラエル）', 'level': 'critical', 'label': 'CRITICAL', 'summary': 'イスラエルとイランの緊張が継続。原油・金価格に直接影響'},
+                {'name': 'ウクライナ-ロシア', 'level': 'high', 'label': 'HIGH', 'summary': '膠着状態が続くも、エスカレーションリスクあり'},
+                {'name': '台湾海峡', 'level': 'high', 'label': 'HIGH', 'summary': '中国の軍事演習増加。半導体供給リスク'},
+                {'name': '日本政治', 'level': 'medium', 'label': 'MEDIUM', 'summary': '高市政権の防衛政策強化。軍需株に注目'},
+                {'name': '北朝鮮', 'level': 'medium', 'label': 'MEDIUM', 'summary': 'ミサイル発射継続。地政学的緊張要因'},
+                {'name': '南シナ海', 'level': 'medium', 'label': 'MEDIUM', 'summary': 'フィリピンとの摩擦。航行の自由作戦継続'}
+            ]) %}
+            <div class="glass-card" style="padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h3 style="font-weight: 700; font-size: 1rem;">{{ region.name }}</h3>
+                    <span class="risk-level {{ region.level }}">{{ region.label }}</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5;">
+                    {{ region.summary }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 軍需株クイックビュー -->
+    <div class="glass-card" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h2 class="section-title" style="margin-bottom: 0;">
+                <span class="icon">🛡️</span>
+                軍需株ウォッチ
+            </h2>
+            <a href="/defense-stocks" class="btn-gold" style="font-size: 0.875rem; padding: 8px 16px;">
+                詳細を見る →
+            </a>
+        </div>
+        <div class="grid grid-4">
+            <div class="glass-card" style="padding: 16px; text-align: center;">
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇺🇸 LMT</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">$502.30</p>
+                <p style="font-size: 0.875rem; color: var(--success);">+2.1%</p>
+            </div>
+            <div class="glass-card" style="padding: 16px; text-align: center;">
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇺🇸 RTX</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">$98.45</p>
+                <p style="font-size: 0.875rem; color: var(--success);">+1.5%</p>
+            </div>
+            <div class="glass-card" style="padding: 16px; text-align: center;">
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇯🇵 三菱重工</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">¥2,450</p>
+                <p style="font-size: 0.875rem; color: var(--success);">+3.2%</p>
+            </div>
+            <div class="glass-card" style="padding: 16px; text-align: center;">
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇯🇵 川崎重工</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">¥5,890</p>
+                <p style="font-size: 0.875rem; color: var(--danger);">-0.8%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 算命学プレビュー -->
+    <div class="glass-card" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h2 class="section-title" style="margin-bottom: 0;">
+                <span class="icon">🔮</span>
+                算命学からの示唆
+            </h2>
+            <a href="/sanmei" class="btn-silver" style="font-size: 0.875rem; padding: 8px 16px;">
+                詳細を見る →
+            </a>
+        </div>
+        <div class="grid grid-2">
+            <div style="padding: 16px; border-left: 3px solid var(--gold);">
+                <h3 style="font-weight: 700; margin-bottom: 8px; color: var(--gold);">2026年2月の運勢</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    甲寅月。木の気が強まり、新しい動きが出やすい時期。地政学的には「動」の気配。
+                    金銀は調整後の上昇トレンド継続を示唆。
+                </p>
+            </div>
+            <div style="padding: 16px; border-left: 3px solid var(--silver);">
+                <h3 style="font-weight: 700; margin-bottom: 8px; color: var(--silver);">注目タイミング</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    2/4（立春）、2/19（雨水）前後は相場の転換点になりやすい。
+                    特に2/15-20は緊張が高まりやすい配置。
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+// ゴールドチャート
+new TradingView.widget({
+    "container_id": "tradingview_gold",
+    "symbol": "TVC:GOLD",
+    "interval": "60",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": "100%",
+    "width": "100%"
+});
+
+// シルバーチャート
+new TradingView.widget({
+    "container_id": "tradingview_silver",
+    "symbol": "TVC:SILVER",
+    "interval": "60",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": "100%",
+    "width": "100%"
+});
+</script>
+{% endblock %}

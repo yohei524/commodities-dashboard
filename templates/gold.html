@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}ゴールド分析 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+                    <span>🥇</span> <span class="gold-gradient">GOLD</span> 分析
+                </h1>
+                <p style="color: var(--text-secondary);">
+                    金価格の推移と地政学的要因
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 3rem; font-weight: 900;" class="gold-gradient">¥{{ data.price_jpy | default('29,815') }}</p>
+                <p style="color: var(--success); font-size: 1.25rem;">+{{ data.change_pct | default('1.2') }}%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 価格詳細 -->
+    <div class="grid grid-4">
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">国内小売価格</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">¥{{ data.price_jpy | default('29,815') }}/g</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">NY金先物</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">${{ data.price_usd | default('2,785') }}/oz</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">52週高値</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">¥{{ data.high_52w | default('30,200') }}</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">52週安値</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">¥{{ data.low_52w | default('24,500') }}</p>
+        </div>
+    </div>
+
+    <!-- チャート -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📈</span>
+            リアルタイムチャート
+        </h2>
+        <div class="tradingview-widget-container" style="height: 500px;">
+            <div id="tradingview_gold" style="height: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- 金価格を動かす要因 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">⚡</span>
+            金価格を動かす要因
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; border-left: 3px solid var(--success);">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">上昇要因</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>地政学的緊張の高まり（セーフヘイブン需要）</li>
+                    <li>中央銀行の金購入（特に中国・ロシア）</li>
+                    <li>インフレ懸念・実質金利低下</li>
+                    <li>ドル安</li>
+                    <li>金融危機・株式市場の下落</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; border-left: 3px solid var(--danger);">
+                <h3 style="font-weight: 700; color: var(--danger); margin-bottom: 12px;">下落要因</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>FRBの利上げ・タカ派姿勢</li>
+                    <li>地政学的緊張の緩和</li>
+                    <li>ドル高</li>
+                    <li>リスクオン相場（株高）</li>
+                    <li>暗号資産への資金シフト</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 現在の状況 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🔍</span>
+            現在の状況分析
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">史上最高値圏で推移</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    金価格は史上最高値圏（国内小売約3万円/g、NY先物2800ドル/oz付近）で推移。
+                    中東情勢、ウクライナ戦争、中央銀行の買い増しが下支え。
+                </p>
+            </div>
+            <div style="padding: 20px; background: rgba(192, 192, 192, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--silver); margin-bottom: 8px;">中央銀行の動き</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    中国人民銀行、ロシア中央銀行が継続的に金を買い増し。
+                    脱ドル化の流れの中で、金の準備資産としての価値が見直されている。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 私の見解 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--gold);">
+        <h2 class="section-title">
+            <span class="icon">💭</span>
+            私の見解（LINE限定）
+        </h2>
+        <div style="padding: 20px; background: rgba(212, 175, 55, 0.05); border-radius: 12px;">
+            <p style="color: var(--text-primary); line-height: 1.8;">
+                {{ data.my_view | default('金は長期的には上昇トレンド継続と見る。短期的には利確売りで調整があっても、中東リスクと中央銀行の買いが下支え。3万円を明確に超えると次は32,000円が視野に。押し目は買い場と考えるが、地政学リスク緩和時は一時的な急落に注意。') }}
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+new TradingView.widget({
+    "container_id": "tradingview_gold",
+    "symbol": "TVC:GOLD",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": "100%",
+    "width": "100%"
+});
+</script>
+{% endblock %}

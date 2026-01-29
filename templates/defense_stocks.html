@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}軍需株ウォッチ | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+            <span>🛡️</span> 軍需株ウォッチ
+        </h1>
+        <p style="color: var(--text-secondary);">
+            地政学リスクと連動する防衛関連銘柄の動向
+        </p>
+    </div>
+
+    <!-- 米国株 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🇺🇸</span>
+            米国防衛株
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>銘柄</th>
+                    <th>ティッカー</th>
+                    <th>現在値</th>
+                    <th>前日比</th>
+                    <th>年初来</th>
+                    <th>注目ポイント</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks.us | default([
+                    {'name': 'ロッキード・マーティン', 'ticker': 'LMT', 'price': '$502.30', 'change': '+2.1%', 'ytd': '+15.3%', 'note': 'F-35戦闘機、ミサイル防衛システム'},
+                    {'name': 'レイセオン・テクノロジーズ', 'ticker': 'RTX', 'price': '$98.45', 'change': '+1.5%', 'ytd': '+12.8%', 'note': 'パトリオットミサイル、航空エンジン'},
+                    {'name': 'ノースロップ・グラマン', 'ticker': 'NOC', 'price': '$485.20', 'change': '+0.8%', 'ytd': '+18.2%', 'note': 'B-21爆撃機、宇宙システム'},
+                    {'name': 'ジェネラル・ダイナミクス', 'ticker': 'GD', 'price': '$298.60', 'change': '+1.2%', 'ytd': '+10.5%', 'note': '戦車、潜水艦、ビジネスジェット'},
+                    {'name': 'L3ハリス', 'ticker': 'LHX', 'price': '$225.80', 'change': '-0.3%', 'ytd': '+8.9%', 'note': '通信・電子戦システム'}
+                ]) %}
+                <tr>
+                    <td style="font-weight: 600;">{{ stock.name }}</td>
+                    <td><span class="tag tag-gold">{{ stock.ticker }}</span></td>
+                    <td style="font-weight: 700;">{{ stock.price }}</td>
+                    <td class="{{ 'up' if '+' in stock.change else 'down' }}" style="color: {{ 'var(--success)' if '+' in stock.change else 'var(--danger)' }};">{{ stock.change }}</td>
+                    <td style="color: {{ 'var(--success)' if '+' in stock.ytd else 'var(--danger)' }};">{{ stock.ytd }}</td>
+                    <td style="color: var(--text-secondary); font-size: 0.875rem;">{{ stock.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 日本株 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🇯🇵</span>
+            日本防衛株
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>銘柄</th>
+                    <th>コード</th>
+                    <th>現在値</th>
+                    <th>前日比</th>
+                    <th>年初来</th>
+                    <th>注目ポイント</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks.jp | default([
+                    {'name': '三菱重工業', 'code': '7011', 'price': '¥2,450', 'change': '+3.2%', 'ytd': '+45.8%', 'note': '戦闘機、艦艇、ミサイル。防衛予算増の最大受益者'},
+                    {'name': '川崎重工業', 'code': '7012', 'price': '¥5,890', 'change': '-0.8%', 'ytd': '+38.2%', 'note': '潜水艦、哨戒機、ヘリコプター'},
+                    {'name': 'IHI', 'code': '7013', 'price': '¥7,250', 'change': '+1.5%', 'ytd': '+52.1%', 'note': '航空エンジン、宇宙開発'},
+                    {'name': '日本製鋼所', 'code': '5631', 'price': '¥4,120', 'change': '+2.8%', 'ytd': '+65.3%', 'note': '戦車砲、防弾板、火薬'},
+                    {'name': 'NEC', 'code': '6701', 'price': '¥12,850', 'change': '+0.5%', 'ytd': '+22.4%', 'note': '防衛通信システム、サイバーセキュリティ'}
+                ]) %}
+                <tr>
+                    <td style="font-weight: 600;">{{ stock.name }}</td>
+                    <td><span class="tag tag-silver">{{ stock.code }}</span></td>
+                    <td style="font-weight: 700;">{{ stock.price }}</td>
+                    <td class="{{ 'up' if '+' in stock.change else 'down' }}" style="color: {{ 'var(--success)' if '+' in stock.change else 'var(--danger)' }};">{{ stock.change }}</td>
+                    <td style="color: {{ 'var(--success)' if '+' in stock.ytd else 'var(--danger)' }};">{{ stock.ytd }}</td>
+                    <td style="color: var(--text-secondary); font-size: 0.875rem;">{{ stock.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 相関分析 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            地政学イベントと株価の相関
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; border-left: 3px solid var(--danger);">
+                <h3 style="font-weight: 700; color: var(--danger); margin-bottom: 12px;">
+                    緊張激化時のパターン
+                </h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>米国防衛株：初動で+3〜5%上昇</li>
+                    <li>日本防衛株：為替も加味すると+5〜8%</li>
+                    <li>金価格：同時に上昇（セーフヘイブン需要）</li>
+                    <li>原油：中東関連なら急騰、それ以外は横ばい</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; border-left: 3px solid var(--success);">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">
+                    緊張緩和時のパターン
+                </h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>防衛株：短期利確売り（-2〜3%）</li>
+                    <li>中長期では予算トレンドが重要</li>
+                    <li>金価格：小幅調整</li>
+                    <li>リスクオン資産へ資金シフト</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 高市政権の影響 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🏛️</span>
+            高市政権と防衛政策
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">
+                    防衛予算の方向性
+                </h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    2027年度までにGDP比2%達成を目標。2026年度予算は8兆円規模。
+                    三菱重工、川崎重工、IHIが主要受注先として恩恵。
+                </p>
+            </div>
+            <div style="padding: 20px; background: rgba(192, 192, 192, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--silver); margin-bottom: 8px;">
+                    重点投資分野
+                </h3>
+                <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 20px;">
+                    <li>スタンドオフ防衛能力（長射程ミサイル）</li>
+                    <li>統合防空ミサイル防衛</li>
+                    <li>無人機（UAV）システム</li>
+                    <li>サイバー・宇宙領域</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- チャート -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📈</span>
+            三菱重工 チャート
+        </h2>
+        <div class="tradingview-widget-container" style="height: 500px;">
+            <div id="tradingview_mhi" style="height: 100%;"></div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+new TradingView.widget({
+    "container_id": "tradingview_mhi",
+    "symbol": "TSE:7011",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": "100%",
+    "width": "100%"
+});
+</script>
+{% endblock %}

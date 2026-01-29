@@ -1,0 +1,409 @@
+/* 金銀カラーパレット - ゴールド×シルバーテーマ */
+:root {
+    /* ゴールド系 */
+    --gold-light: #F5E6B8;
+    --gold: #D4AF37;
+    --gold-dark: #B8860B;
+    --gold-deep: #996515;
+
+    /* シルバー系 */
+    --silver-light: #E8E8E8;
+    --silver: #C0C0C0;
+    --silver-dark: #A8A8A8;
+    --silver-deep: #808080;
+
+    /* アクセント */
+    --danger: #DC3545;
+    --warning: #FFC107;
+    --success: #28A745;
+    --info: #17A2B8;
+
+    /* 背景 */
+    --bg-dark: #1A1A2E;
+    --bg-card: #16213E;
+    --bg-card-hover: #1F3460;
+
+    /* テキスト */
+    --text-primary: #F5F5F5;
+    --text-secondary: #B0B0B0;
+    --text-muted: #707070;
+}
+
+/* ベース */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #0F0F1E 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* グラスモーフィズムカード */
+.glass-card {
+    background: rgba(22, 33, 62, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+}
+
+/* ゴールドグラデーション */
+.gold-gradient {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* シルバーグラデーション */
+.silver-gradient {
+    background: linear-gradient(135deg, var(--silver-light) 0%, var(--silver) 50%, var(--silver-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ゴールドボーダー */
+.gold-border {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                linear-gradient(135deg, var(--gold-light), var(--gold-dark)) border-box;
+}
+
+/* シルバーボーダー */
+.silver-border {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                linear-gradient(135deg, var(--silver-light), var(--silver-dark)) border-box;
+}
+
+/* ゴールドボタン */
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--bg-dark);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-gold:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* シルバーボタン */
+.btn-silver {
+    background: linear-gradient(135deg, var(--silver) 0%, var(--silver-dark) 100%);
+    color: var(--bg-dark);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-silver:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(192, 192, 192, 0.4);
+}
+
+/* ナビゲーション */
+.nav {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.nav-links a.active {
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.15);
+}
+
+/* コンテナ */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* 価格カード */
+.price-card {
+    padding: 24px;
+    text-align: center;
+}
+
+.price-card .icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.price-card .label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.price-card .price {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 8px 0;
+}
+
+.price-card .change {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.price-card .change.up {
+    color: var(--success);
+}
+
+.price-card .change.down {
+    color: var(--danger);
+}
+
+/* リスクレベル */
+.risk-level {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.risk-level.critical {
+    background: rgba(220, 53, 69, 0.2);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.risk-level.high {
+    background: rgba(255, 193, 7, 0.2);
+    color: var(--warning);
+    border: 1px solid var(--warning);
+}
+
+.risk-level.medium {
+    background: rgba(23, 162, 184, 0.2);
+    color: var(--info);
+    border: 1px solid var(--info);
+}
+
+.risk-level.low {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+
+/* グリッド */
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-4, .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links a {
+        padding: 8px 12px;
+        font-size: 0.875rem;
+    }
+}
+
+/* セクションタイトル */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title .icon {
+    font-size: 1.75rem;
+}
+
+/* テーブル */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.data-table th {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table tr:hover {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+/* タグ */
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tag-gold {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--gold);
+}
+
+.tag-silver {
+    background: rgba(192, 192, 192, 0.2);
+    color: var(--silver);
+}
+
+.tag-oil {
+    background: rgba(139, 90, 43, 0.3);
+    color: #D2691E;
+}
+
+/* フッター */
+.footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    margin-top: 48px;
+}
+
+/* アニメーション */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.shimmer {
+    background: linear-gradient(90deg,
+        var(--gold-dark) 0%,
+        var(--gold-light) 50%,
+        var(--gold-dark) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold-dark);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}

@@ -1,0 +1,25 @@
+{
+  "gold": {
+    "price_jpy": "29,815",
+    "price_usd": "2,785",
+    "change_pct": 1.2,
+    "high_52w": "30,200",
+    "low_52w": "24,500",
+    "updated": "2026-01-29"
+  },
+  "silver": {
+    "price_jpy": "644",
+    "price_usd": "31.50",
+    "change_pct": 2.1,
+    "high_52w": "680",
+    "low_52w": "420",
+    "updated": "2026-01-29"
+  },
+  "oil": {
+    "price_usd": "78.50",
+    "change_pct": -0.8,
+    "high_52w": "95.00",
+    "low_52w": "65.00",
+    "updated": "2026-01-29"
+  }
+}

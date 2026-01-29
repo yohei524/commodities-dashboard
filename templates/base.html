@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Geopolitics × Commodities{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- ナビゲーション -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span>🏆</span>
+                <span class="gold-gradient">GOLD</span>
+                <span class="silver-gradient">SILVER</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="{{ 'active' if request.endpoint == 'index' else '' }}">ダッシュボード</a></li>
+                <li><a href="/gold" class="{{ 'active' if request.endpoint == 'gold' else '' }}">ゴールド</a></li>
+                <li><a href="/silver" class="{{ 'active' if request.endpoint == 'silver' else '' }}">シルバー</a></li>
+                <li><a href="/oil" class="{{ 'active' if request.endpoint == 'oil' else '' }}">原油</a></li>
+                <li><a href="/defense-stocks" class="{{ 'active' if request.endpoint == 'defense_stocks' else '' }}">軍需株</a></li>
+                <li><a href="/geopolitics" class="{{ 'active' if request.endpoint == 'geopolitics' else '' }}">地政学</a></li>
+                <li><a href="/sanmei" class="{{ 'active' if request.endpoint == 'sanmei' else '' }}">算命学</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <p>Geopolitics × Commodities Dashboard | 個人投資研究用</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

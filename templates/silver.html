@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}シルバー分析 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card silver-border" style="padding: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+                    <span>🥈</span> <span class="silver-gradient">SILVER</span> 分析
+                </h1>
+                <p style="color: var(--text-secondary);">
+                    銀価格の推移と需給動向
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 3rem; font-weight: 900;" class="silver-gradient">¥{{ data.price_jpy | default('644') }}</p>
+                <p style="color: var(--success); font-size: 1.25rem;">+{{ data.change_pct | default('2.1') }}%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 価格詳細 -->
+    <div class="grid grid-4">
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">国内小売価格</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--silver);">¥{{ data.price_jpy | default('644') }}/g</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">NY銀先物</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--silver);">${{ data.price_usd | default('31.50') }}/oz</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">金銀レシオ</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">{{ data.gold_silver_ratio | default('88.4') }}</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">年初来</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--success);">+{{ data.ytd | default('18.5') }}%</p>
+        </div>
+    </div>
+
+    <!-- チャート -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📈</span>
+            リアルタイムチャート
+        </h2>
+        <div class="tradingview-widget-container" style="height: 500px;">
+            <div id="tradingview_silver" style="height: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- 金銀レシオ -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">⚖️</span>
+            金銀レシオ（Gold/Silver Ratio）
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="padding: 20px; background: rgba(192, 192, 192, 0.1); border-radius: 12px;">
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    現在の金銀レシオは約<strong style="color: var(--gold);">88</strong>。
+                    歴史的平均は60〜70程度であり、銀は金に対して割安な状態が続いている。
+                </p>
+            </div>
+            <div class="grid grid-3">
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--silver); border-radius: 12px;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">歴史的平均</p>
+                    <p style="font-size: 1.5rem; font-weight: 700;">60-70</p>
+                </div>
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--gold); border-radius: 12px;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">現在値</p>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--warning);">88.4</p>
+                </div>
+                <div style="padding: 16px; text-align: center; border: 1px solid var(--success); border-radius: 12px;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">示唆</p>
+                    <p style="font-size: 1rem; font-weight: 700; color: var(--success);">銀は割安</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 銀の特徴 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">⚡</span>
+            銀の特徴
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; border-left: 3px solid var(--silver);">
+                <h3 style="font-weight: 700; color: var(--silver); margin-bottom: 12px;">工業需要</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>太陽光パネル（銀ペースト）</li>
+                    <li>電子機器（導電性材料）</li>
+                    <li>EV・電池関連</li>
+                    <li>医療用途（抗菌性）</li>
+                    <li>5G通信インフラ</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; border-left: 3px solid var(--gold);">
+                <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 12px;">投資需要</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>金と同様のセーフヘイブン機能</li>
+                    <li>インフレヘッジ</li>
+                    <li>金よりボラティリティが高い</li>
+                    <li>小口投資に向いている</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 需給動向 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            需給動向
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="padding: 20px; background: rgba(40, 167, 69, 0.1); border-radius: 12px; border-left: 4px solid var(--success);">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 8px;">供給不足継続</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    銀市場は3年連続で供給不足の見通し。鉱山生産は伸び悩む一方、
+                    太陽光発電の需要増で工業需要は過去最高水準。
+                </p>
+            </div>
+            <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px; border-left: 4px solid var(--gold);">
+                <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">グリーンエネルギー需要</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    太陽光パネルの銀使用量は年間約1億オンス以上。
+                    再生可能エネルギーへの移行で長期的な需要増が見込まれる。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 私の見解 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--silver);">
+        <h2 class="section-title">
+            <span class="icon">💭</span>
+            私の見解（LINE限定）
+        </h2>
+        <div style="padding: 20px; background: rgba(192, 192, 192, 0.05); border-radius: 12px;">
+            <p style="color: var(--text-primary); line-height: 1.8;">
+                {{ data.my_view | default('銀は金よりアップサイドが大きいと見ている。金銀レシオが歴史的高水準にあり、平均回帰するなら銀の上昇余地は大きい。工業需要（特に太陽光）の成長は確実で、供給不足が続く構造。ボラティリティは高いが、長期保有なら魅力的。700円/gを超えると800円が次の節目。') }}
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+new TradingView.widget({
+    "container_id": "tradingview_silver",
+    "symbol": "TVC:SILVER",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": "100%",
+    "width": "100%"
+});
+</script>
+{% endblock %}
