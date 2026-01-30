@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}トレード日誌 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+            <span>📒</span> トレード日誌
+        </h1>
+        <p style="color: var(--text-secondary);">
+            エントリー/エグジット記録と損益管理
+        </p>
+    </div>
+
+    <!-- 統計サマリー -->
+    {% if data.stats %}
+    <div class="grid grid-4">
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">累計損益</p>
+            <p style="font-size: 2rem; font-weight: 900; color: {{ 'var(--success)' if data.stats.total_pnl > 0 else 'var(--danger)' }};">
+                {% if data.stats.total_pnl > 0 %}+{% endif %}¥{{ "{:,}".format(data.stats.total_pnl) }}
+            </p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">勝率</p>
+            <p style="font-size: 2rem; font-weight: 900; color: var(--gold);">{{ data.stats.win_rate }}%</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">{{ data.stats.win_trades }}勝 {{ data.stats.lose_trades }}敗</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">平均利益 / 損失</p>
+            <p style="font-size: 1.25rem; font-weight: 700;">
+                <span style="color: var(--success);">+¥{{ "{:,}".format(data.stats.avg_win) }}</span>
+                /
+                <span style="color: var(--danger);">¥{{ "{:,}".format(data.stats.avg_lose) }}</span>
+            </p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">プロフィットファクター</p>
+            <p style="font-size: 2rem; font-weight: 900; color: {{ 'var(--success)' if data.stats.profit_factor > 1 else 'var(--danger)' }};">
+                {{ data.stats.profit_factor }}
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- トレード一覧 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            トレード履歴
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>銘柄</th>
+                    <th>方向</th>
+                    <th>エントリー</th>
+                    <th>エグジット</th>
+                    <th>数量</th>
+                    <th>損益</th>
+                    <th>根拠</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trade in data.trades | default([
+                    {
+                        'date': '2026-01-28',
+                        'symbol': 'GOLD',
+                        'direction': 'long',
+                        'entry': 2780,
+                        'exit': 2805,
+                        'size': '1oz',
+                        'pnl': 3750,
+                        'reason': '中東緊張激化、RSI過熱なし、MA上向き',
+                        'result_note': '予想通り上昇。利確ライン2800到達で決済'
+                    },
+                    {
+                        'date': '2026-01-25',
+                        'symbol': 'SILVER',
+                        'direction': 'long',
+                        'entry': 30.50,
+                        'exit': 31.20,
+                        'size': '100oz',
+                        'pnl': 10500,
+                        'reason': '金銀レシオ90超え→銀割安、テクニカルも上向き',
+                        'result_note': '金に追随して上昇'
+                    },
+                    {
+                        'date': '2026-01-22',
+                        'symbol': 'WTI',
+                        'direction': 'short',
+                        'entry': 79.50,
+                        'exit': 80.20,
+                        'size': '10バレル',
+                        'pnl': -10500,
+                        'reason': 'OPEC減産なしで下落予想',
+                        'result_note': '中東リスクで逆行。損切り'
+                    }
+                ]) %}
+                <tr>
+                    <td>{{ trade.date }}</td>
+                    <td>
+                        <span class="tag {% if trade.symbol == 'GOLD' %}tag-gold{% elif trade.symbol == 'SILVER' %}tag-silver{% else %}tag-oil{% endif %}">
+                            {{ trade.symbol }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if trade.direction == 'long' %}
+                        <span style="color: var(--success); font-weight: 700;">📈 LONG</span>
+                        {% else %}
+                        <span style="color: var(--danger); font-weight: 700;">📉 SHORT</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-weight: 600;">{{ trade.entry }}</td>
+                    <td style="font-weight: 600;">{{ trade.exit }}</td>
+                    <td>{{ trade.size }}</td>
+                    <td style="font-weight: 700; color: {{ 'var(--success)' if trade.pnl > 0 else 'var(--danger)' }};">
+                        {% if trade.pnl > 0 %}+{% endif %}¥{{ "{:,}".format(trade.pnl) }}
+                    </td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary); max-width: 200px;">
+                        {{ trade.reason }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- トレード詳細（最新） -->
+    {% set latest = data.trades[0] if data.trades else none %}
+    {% if latest %}
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🔍</span>
+            最新トレード詳細
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 12px;">エントリー根拠</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">{{ latest.reason }}</p>
+            </div>
+            <div style="padding: 20px; background: rgba(192, 192, 192, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--silver); margin-bottom: 12px;">結果・反省</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">{{ latest.result_note | default('記録なし') }}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ルール確認 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--gold);">
+        <h2 class="section-title">
+            <span class="icon">📋</span>
+            マイトレードルール
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">エントリー条件</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 2; padding-left: 20px;">
+                    {% for rule in data.rules.entry | default([
+                        '地政学リスク上昇 + テクニカル上向き',
+                        'RSI 70未満（過熱なし）',
+                        '日足MA(20)の上にある',
+                        'サポートライン付近での押し目',
+                        '損切りラインを先に決める'
+                    ]) %}
+                    <li>{{ rule }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; color: var(--danger); margin-bottom: 12px;">リスク管理</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 2; padding-left: 20px;">
+                    {% for rule in data.rules.risk | default([
+                        '1トレードのリスクは資金の2%以内',
+                        '損切りは必ず設定（-3%目安）',
+                        '利確は損切り幅の2倍以上',
+                        '同時ポジションは3つまで',
+                        '連敗3回で1日休む'
+                    ]) %}
+                    <li>{{ rule }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

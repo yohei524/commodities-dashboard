@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}週次判断 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+                    <span>🎯</span> 週次トレード判断
+                </h1>
+                <p style="color: var(--text-secondary);">
+                    {{ data.week | default('2026年1月27日〜2月2日') }}
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 0.8rem; color: var(--text-muted);">最終更新</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">{{ data.updated | default('2026-01-30 09:00') }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 総合判断 -->
+    <div class="grid grid-3">
+        {% for asset in data.judgments | default([
+            {'symbol': 'GOLD', 'judgment': 'BUY', 'confidence': 75, 'target': '2850', 'stop': '2720', 'color': 'gold'},
+            {'symbol': 'SILVER', 'judgment': 'BUY', 'confidence': 80, 'target': '33.00', 'stop': '29.50', 'color': 'silver'},
+            {'symbol': 'WTI', 'judgment': 'HOLD', 'confidence': 50, 'target': '-', 'stop': '-', 'color': 'oil'}
+        ]) %}
+        <div class="glass-card" style="padding: 24px; text-align: center; border: 2px solid {% if asset.judgment == 'BUY' %}var(--success){% elif asset.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+            <p style="font-size: 0.9rem; color: var(--text-muted);">{{ asset.symbol }}</p>
+            <p style="font-size: 3rem; font-weight: 900; color: {% if asset.judgment == 'BUY' %}var(--success){% elif asset.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+                {% if asset.judgment == 'BUY' %}📈 買い{% elif asset.judgment == 'SELL' %}📉 売り{% else %}⏸️ 様子見{% endif %}
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px;">
+                確信度: <strong style="color: var(--gold);">{{ asset.confidence }}%</strong>
+            </p>
+            {% if asset.judgment != 'HOLD' %}
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="font-size: 0.8rem;">
+                    <span style="color: var(--success);">利確: {{ asset.target }}</span>
+                    <span style="margin: 0 8px;">|</span>
+                    <span style="color: var(--danger);">損切: {{ asset.stop }}</span>
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- テクニカル分析 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            テクニカル分析
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>銘柄</th>
+                    <th>現在値</th>
+                    <th>MA(20)</th>
+                    <th>MA(50)</th>
+                    <th>RSI(14)</th>
+                    <th>サポート</th>
+                    <th>レジスタンス</th>
+                    <th>トレンド</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in data.technicals | default([
+                    {'symbol': 'GOLD', 'price': 2785, 'ma20': 2750, 'ma50': 2680, 'rsi': 62, 'support': 2720, 'resistance': 2850, 'trend': 'up'},
+                    {'symbol': 'SILVER', 'price': 31.50, 'ma20': 30.20, 'ma50': 28.80, 'rsi': 58, 'support': 29.50, 'resistance': 33.00, 'trend': 'up'},
+                    {'symbol': 'WTI', 'price': 78.50, 'ma20': 76.80, 'ma50': 74.50, 'rsi': 55, 'support': 72.00, 'resistance': 82.00, 'trend': 'neutral'}
+                ]) %}
+                <tr>
+                    <td><span class="tag {% if t.symbol == 'GOLD' %}tag-gold{% elif t.symbol == 'SILVER' %}tag-silver{% else %}tag-oil{% endif %}">{{ t.symbol }}</span></td>
+                    <td style="font-weight: 700;">{{ t.price }}</td>
+                    <td style="color: {{ 'var(--success)' if t.price > t.ma20 else 'var(--danger)' }};">{{ t.ma20 }} {% if t.price > t.ma20 %}↑{% else %}↓{% endif %}</td>
+                    <td style="color: {{ 'var(--success)' if t.price > t.ma50 else 'var(--danger)' }};">{{ t.ma50 }} {% if t.price > t.ma50 %}↑{% else %}↓{% endif %}</td>
+                    <td style="color: {% if t.rsi > 70 %}var(--danger){% elif t.rsi < 30 %}var(--success){% else %}var(--text-primary){% endif %};">
+                        {{ t.rsi }}
+                        {% if t.rsi > 70 %}⚠️過熱{% elif t.rsi < 30 %}⚠️売られすぎ{% endif %}
+                    </td>
+                    <td style="color: var(--success);">{{ t.support }}</td>
+                    <td style="color: var(--danger);">{{ t.resistance }}</td>
+                    <td>
+                        {% if t.trend == 'up' %}
+                        <span style="color: var(--success); font-weight: 700;">🔼 上昇</span>
+                        {% elif t.trend == 'down' %}
+                        <span style="color: var(--danger); font-weight: 700;">🔽 下降</span>
+                        {% else %}
+                        <span style="color: var(--warning); font-weight: 700;">➡️ 中立</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ファンダメンタル要因 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🌍</span>
+            今週のファンダメンタル要因
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; border-left: 3px solid var(--success);">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">上昇要因</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    {% for factor in data.bullish_factors | default([
+                        'イスラエル・イラン緊張継続（セーフヘイブン需要）',
+                        '中国人民銀行の金購入継続',
+                        'FRBの利下げ期待（3月据え置きでも年内2回予想）',
+                        '実質金利の低下傾向'
+                    ]) %}
+                    <li>{{ factor }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="padding: 20px; border-left: 3px solid var(--danger);">
+                <h3 style="font-weight: 700; color: var(--danger); margin-bottom: 12px;">下落要因</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    {% for factor in data.bearish_factors | default([
+                        'ドル高継続（DXY 104付近）',
+                        '米国株好調（リスクオン）',
+                        '2800ドル付近での利確売り',
+                        '週末のポジション調整'
+                    ]) %}
+                    <li>{{ factor }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 今週の注目イベント -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📅</span>
+            今週の注目イベント
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            {% for event in data.events | default([
+                {'date': '1/30(木)', 'time': '22:30', 'event': '米GDP速報値(Q4)', 'impact': 'high', 'note': '予想+2.5%。上振れでドル高→金下落リスク'},
+                {'date': '1/31(金)', 'time': '22:30', 'event': '米PCEデフレーター', 'impact': 'high', 'note': 'FRBの最重要指標。予想+2.6%。上振れ注意'},
+                {'date': '2/1(土)', 'time': '-', 'event': '中国製造業PMI', 'impact': 'medium', 'note': '景気減速確認なら金に追い風'},
+                {'date': '2/3(月)', 'time': '24:00', 'event': 'ISM製造業景況指数', 'impact': 'medium', 'note': '予想49.5。50割れ継続で景気懸念'}
+            ]) %}
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(22, 33, 62, 0.5); border-radius: 8px;">
+                <div style="min-width: 80px; text-align: center;">
+                    <p style="font-weight: 700;">{{ event.date }}</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">{{ event.time }}</p>
+                </div>
+                <span class="risk-level {{ event.impact }}">
+                    {% if event.impact == 'high' %}重要{% else %}注目{% endif %}
+                </span>
+                <div style="flex: 1;">
+                    <p style="font-weight: 600;">{{ event.event }}</p>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">{{ event.note }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 算命学の示唆 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🔮</span>
+            算命学の示唆
+        </h2>
+        <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
+            <p style="color: var(--text-secondary); line-height: 1.8;">
+                {{ data.sanmei_note | default('己丑月の最終週。土の気が安定をもたらすが、週末の立春（2/4）に向けて「動」の気配が強まる。1/30-31は相場の転換点になりやすい配置。慎重なポジション管理を。') }}
+            </p>
+        </div>
+    </div>
+
+    <!-- 私の判断根拠 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--gold);">
+        <h2 class="section-title">
+            <span class="icon">💭</span>
+            今週の判断根拠（LINE限定）
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            {% for asset in data.reasoning | default([
+                {
+                    'symbol': 'GOLD',
+                    'reasoning': '中東リスク継続でセーフヘイブン需要は底堅い。テクニカルもMA(20)上、RSI過熱なし。2800突破後の押し目を狙いたい。利確は2850、損切りは2720。PCEデフレーター次第で急変動あり得るので、発表前にポジション縮小推奨。'
+                },
+                {
+                    'symbol': 'SILVER',
+                    'reasoning': '金銀レシオ88は割安。金の上昇に追随しやすい。ボラが高いのでサイズは控えめに。33ドル突破で加速の可能性。損切り29.50は死守。'
+                },
+                {
+                    'symbol': 'WTI',
+                    'reasoning': '中東リスクと世界経済減速が綱引き。方向感なし。72-82ドルのレンジを想定し、ブレイク待ち。今週はノーポジ推奨。'
+                }
+            ]) %}
+            <div style="padding: 20px; background: rgba(22, 33, 62, 0.5); border-radius: 12px; border-left: 3px solid {% if asset.symbol == 'GOLD' %}var(--gold){% elif asset.symbol == 'SILVER' %}var(--silver){% else %}#D2691E{% endif %};">
+                <h3 style="font-weight: 700; margin-bottom: 8px;">{{ asset.symbol }}</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.9rem;">{{ asset.reasoning }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

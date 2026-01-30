@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}過去検証 | Geopolitics × Commodities{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+            <span>📚</span> 過去イベント検証
+        </h1>
+        <p style="color: var(--text-secondary);">
+            地政学イベントと価格変動の実績データ + 算命学予測の検証
+        </p>
+    </div>
+
+    <!-- 過去の地政学イベント -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🌍</span>
+            地政学イベントと価格変動
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>イベント</th>
+                    <th>金</th>
+                    <th>銀</th>
+                    <th>原油</th>
+                    <th>軍需株</th>
+                    <th>教訓</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in history.events | default([
+                    {
+                        'date': '2024-10-01',
+                        'event': 'イラン、イスラエルにミサイル攻撃',
+                        'gold': '+2.8%',
+                        'silver': '+4.2%',
+                        'oil': '+5.1%',
+                        'defense': '+3.5%',
+                        'lesson': '中東緊張は金・原油同時上昇。初動が大きい'
+                    },
+                    {
+                        'date': '2024-04-13',
+                        'event': 'イラン、イスラエルにドローン攻撃',
+                        'gold': '+1.5%',
+                        'silver': '+2.1%',
+                        'oil': '+3.2%',
+                        'defense': '+2.8%',
+                        'lesson': '週末の攻撃→月曜窓開け。ポジション持ち越し注意'
+                    },
+                    {
+                        'date': '2023-10-07',
+                        'event': 'ハマス、イスラエル攻撃',
+                        'gold': '+3.2%',
+                        'silver': '+2.8%',
+                        'oil': '+4.5%',
+                        'defense': '+4.2%',
+                        'lesson': '突発イベントは初動に乗れるかが勝負'
+                    },
+                    {
+                        'date': '2022-02-24',
+                        'event': 'ロシア、ウクライナ侵攻',
+                        'gold': '+3.5%',
+                        'silver': '+5.2%',
+                        'oil': '+8.0%',
+                        'defense': '+6.5%',
+                        'lesson': '大規模戦争は全コモディティ急騰。その後は反落注意'
+                    },
+                    {
+                        'date': '2020-01-03',
+                        'event': '米、ソレイマニ司令官殺害',
+                        'gold': '+2.4%',
+                        'silver': '+1.8%',
+                        'oil': '+4.0%',
+                        'defense': '+3.0%',
+                        'lesson': '報復懸念で急騰→報復なしで全戻し'
+                    }
+                ]) %}
+                <tr>
+                    <td>{{ event.date }}</td>
+                    <td style="font-weight: 600; max-width: 200px;">{{ event.event }}</td>
+                    <td style="color: var(--success); font-weight: 600;">{{ event.gold }}</td>
+                    <td style="color: var(--success); font-weight: 600;">{{ event.silver }}</td>
+                    <td style="color: var(--success); font-weight: 600;">{{ event.oil }}</td>
+                    <td style="color: var(--success); font-weight: 600;">{{ event.defense }}</td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary);">{{ event.lesson }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- パターン分析 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            イベント別 平均変動率
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; margin-bottom: 16px;">中東緊張（イラン・イスラエル）</h3>
+                <table class="data-table">
+                    <tr>
+                        <td>金</td>
+                        <td style="color: var(--success); font-weight: 700;">+2.5% (平均)</td>
+                    </tr>
+                    <tr>
+                        <td>銀</td>
+                        <td style="color: var(--success); font-weight: 700;">+3.2% (平均)</td>
+                    </tr>
+                    <tr>
+                        <td>原油</td>
+                        <td style="color: var(--success); font-weight: 700;">+4.3% (平均)</td>
+                    </tr>
+                    <tr>
+                        <td>初動後の動き</td>
+                        <td style="color: var(--warning);">3-5日で半値戻し多い</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; margin-bottom: 16px;">台湾関連（中国演習など）</h3>
+                <table class="data-table">
+                    <tr>
+                        <td>金</td>
+                        <td style="color: var(--success); font-weight: 700;">+1.2% (平均)</td>
+                    </tr>
+                    <tr>
+                        <td>銀</td>
+                        <td style="color: var(--success); font-weight: 700;">+0.8% (平均)</td>
+                    </tr>
+                    <tr>
+                        <td>原油</td>
+                        <td style="color: var(--warning); font-weight: 700;">±0.5%</td>
+                    </tr>
+                    <tr>
+                        <td>特徴</td>
+                        <td style="color: var(--text-secondary);">半導体株への影響が大</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 算命学予測の検証 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🔮</span>
+            算命学予測の検証
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>予測日</th>
+                    <th>予測内容</th>
+                    <th>実際の結果</th>
+                    <th>判定</th>
+                    <th>メモ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in sanmei.records | default([
+                    {
+                        'date': '2025-12-22',
+                        'prediction': '冬至前後は相場転換点。金は上昇しやすい',
+                        'result': '金2680→2750ドル (+2.6%)',
+                        'verdict': 'hit',
+                        'note': '予測通り。冬至の転換点は有効'
+                    },
+                    {
+                        'date': '2025-11-07',
+                        'prediction': '立冬。調整局面入りやすい',
+                        'result': '金2750→2680ドル (-2.5%)',
+                        'verdict': 'hit',
+                        'note': '予測通り調整。季節の節目は意識される'
+                    },
+                    {
+                        'date': '2025-09-23',
+                        'prediction': '秋分。トレンド転換点',
+                        'result': '原油72→68ドル (-5.5%)',
+                        'verdict': 'hit',
+                        'note': '原油は予測通り。金は横ばいで外れ'
+                    },
+                    {
+                        'date': '2025-06-21',
+                        'prediction': '夏至。地政学緊張ピーク',
+                        'result': 'イスラエル・レバノン緊張激化',
+                        'verdict': 'hit',
+                        'note': '実際に緊張高まる。金+4%'
+                    },
+                    {
+                        'date': '2025-04-04',
+                        'prediction': '清明。緊張緩和の兆し',
+                        'result': '原油急騰（OPEC減産）',
+                        'verdict': 'miss',
+                        'note': 'OPECのサプライズ減産は読めず'
+                    }
+                ]) %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td style="max-width: 200px;">{{ record.prediction }}</td>
+                    <td style="max-width: 200px;">{{ record.result }}</td>
+                    <td>
+                        {% if record.verdict == 'hit' %}
+                        <span style="color: var(--success); font-weight: 700;">✅ 的中</span>
+                        {% else %}
+                        <span style="color: var(--danger); font-weight: 700;">❌ 外れ</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary);">{{ record.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 算命学の的中率 -->
+        <div style="margin-top: 24px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="font-weight: 700; color: var(--gold);">算命学予測の的中率</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">過去12ヶ月の検証結果</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-size: 3rem; font-weight: 900; color: var(--gold);">{{ sanmei.hit_rate | default('72') }}%</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">{{ sanmei.hits | default('18') }}的中 / {{ sanmei.total | default('25') }}予測</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学んだ教訓 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid var(--gold);">
+        <h2 class="section-title">
+            <span class="icon">📝</span>
+            検証から得た教訓
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">うまくいったパターン</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    {% for lesson in history.success_patterns | default([
+                        '中東緊張激化の初動に乗る（1-2日で利確）',
+                        '節気（立春・夏至・冬至）前後の転換点を意識',
+                        'RSI過熱なし + 地政学リスク = 買い安心感',
+                        '金銀レシオ90超えで銀買い'
+                    ]) %}
+                    <li>{{ lesson }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="padding: 20px;">
+                <h3 style="font-weight: 700; color: var(--danger); margin-bottom: 12px;">失敗したパターン</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    {% for lesson in history.failure_patterns | default([
+                        '緊張緩和を予想して逆張り（継続する場合多い）',
+                        'OPEC・FOMCなど予測不能イベント前のポジション',
+                        '週末持ち越しで月曜窓開けに被弾',
+                        '利確が早すぎ / 損切りが遅すぎ'
+                    ]) %}
+                    <li>{{ lesson }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
