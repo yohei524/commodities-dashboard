@@ -153,14 +153,61 @@
         </div>
     </div>
 
-    <!-- チャート -->
+    <!-- 防衛ETFチャート -->
     <div class="glass-card" style="padding: 24px;">
         <h2 class="section-title">
             <span class="icon">📈</span>
-            三菱重工 チャート
+            防衛関連ETF・指数
         </h2>
-        <div class="tradingview-widget-container" style="width: 800px; height: 600px; margin: 0 auto;">
-            <div id="tradingview_mhi" style="height: 100%; width: 100%;"></div>
+        <div class="grid grid-2">
+            <!-- ITA (米国防衛ETF) -->
+            <div>
+                <h3 style="font-weight: 700; margin-bottom: 12px; color: var(--gold);">
+                    ITA - iShares U.S. Aerospace & Defense ETF
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+                    米国の航空宇宙・防衛セクターに投資するETF。LMT, RTX, BA等を含む
+                </p>
+                <div class="tradingview-widget-container" style="width: 100%; height: 400px;">
+                    <div id="tradingview_ita" style="height: 100%; width: 100%;"></div>
+                </div>
+            </div>
+            <!-- PPA (別の防衛ETF) -->
+            <div>
+                <h3 style="font-weight: 700; margin-bottom: 12px; color: var(--silver);">
+                    PPA - Invesco Aerospace & Defense ETF
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+                    航空宇宙・防衛企業に幅広く投資。ITAより銘柄数が多い
+                </p>
+                <div class="tradingview-widget-container" style="width: 100%; height: 400px;">
+                    <div id="tradingview_ppa" style="height: 100%; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 個別株チャート -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🏭</span>
+            個別株チャート
+        </h2>
+        <div class="grid grid-2">
+            <!-- 三菱重工 -->
+            <div>
+                <h3 style="font-weight: 700; margin-bottom: 12px;">🇯🇵 三菱重工業 (7011)</h3>
+                <div class="tradingview-widget-container" style="width: 100%; height: 400px;">
+                    <div id="tradingview_mhi" style="height: 100%; width: 100%;"></div>
+                </div>
+            </div>
+            <!-- ロッキード・マーティン -->
+            <div>
+                <h3 style="font-weight: 700; margin-bottom: 12px;">🇺🇸 Lockheed Martin (LMT)</h3>
+                <div class="tradingview-widget-container" style="width: 100%; height: 400px;">
+                    <div id="tradingview_lmt" style="height: 100%; width: 100%;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -170,6 +217,43 @@
 {% block scripts %}
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script type="text/javascript">
+// ITA - 米国防衛ETF
+new TradingView.widget({
+    "container_id": "tradingview_ita",
+    "symbol": "AMEX:ITA",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": 400,
+    "width": "100%",
+    "autosize": false
+});
+
+// PPA - 別の防衛ETF
+new TradingView.widget({
+    "container_id": "tradingview_ppa",
+    "symbol": "AMEX:PPA",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": 400,
+    "width": "100%",
+    "autosize": false
+});
+
+// 三菱重工
 new TradingView.widget({
     "container_id": "tradingview_mhi",
     "symbol": "TSE:7011",
@@ -182,8 +266,26 @@ new TradingView.widget({
     "enable_publishing": false,
     "hide_top_toolbar": false,
     "save_image": false,
-    "height": 600,
-    "width": 800,
+    "height": 400,
+    "width": "100%",
+    "autosize": false
+});
+
+// ロッキード・マーティン
+new TradingView.widget({
+    "container_id": "tradingview_lmt",
+    "symbol": "NYSE:LMT",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": 400,
+    "width": "100%",
     "autosize": false
 });
 </script>
