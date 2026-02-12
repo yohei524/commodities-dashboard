@@ -8,7 +8,8 @@
       "confidence": 85,
       "target": "5200",
       "stop": "4900",
-      "color": "gold"
+      "color": "gold",
+      "rationale_short": "$5,000突破。WF/JPM年末$6,300。PBoC15ヶ月連続買い。押し目買い方針"
     },
     {
       "symbol": "SILVER",
@@ -16,7 +17,8 @@
       "confidence": 70,
       "target": "90.00",
       "stop": "78.00",
-      "color": "silver"
+      "color": "silver",
+      "rationale_short": "AI・太陽光需要で構造的不足。$100→$80急落後のリバウンド局面。ボラ注意"
     },
     {
       "symbol": "WTI",
@@ -24,7 +26,8 @@
       "confidence": 45,
       "target": "-",
       "stop": "-",
-      "color": "oil"
+      "color": "oil",
+      "rationale_short": "$58-66レンジ膠着。在庫急増vs中東リスク。方向感なし。ノーポジ推奨"
     }
   ],
   "technicals": [

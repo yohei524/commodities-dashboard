@@ -19,9 +19,13 @@ def index():
     """トップページ - コモディティ価格と地政学リスク"""
     prices = load_json('prices.json')
     risks = load_json('geopolitical_risks.json')
+    weekly = load_json('weekly_outlook.json')
+    stocks = load_json('defense_stocks.json')
     return render_template('index.html',
                           prices=prices,
                           risks=risks,
+                          weekly=weekly,
+                          stocks=stocks,
                           today=datetime.now().strftime('%Y-%m-%d'))
 
 @app.route('/gold')

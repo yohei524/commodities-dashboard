@@ -38,6 +38,13 @@
             <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 8px;">
                 確信度: <strong style="color: var(--gold);">{{ asset.confidence }}%</strong>
             </p>
+            <!-- 信頼度バー -->
+            <div style="margin-top: 12px; background: rgba(255,255,255,0.1); border-radius: 4px; height: 4px;">
+                <div style="width: {{ asset.confidence }}%; height: 4px; border-radius: 4px; background: {% if asset.judgment == 'BUY' %}var(--success){% elif asset.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};"></div>
+            </div>
+            {% if asset.rationale_short %}
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.4;">{{ asset.rationale_short }}</p>
+            {% endif %}
             {% if asset.judgment != 'HOLD' %}
             <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
                 <p style="font-size: 0.8rem;">

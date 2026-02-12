@@ -56,6 +56,47 @@
         </a>
     </div>
 
+    <!-- 今週のシグナル -->
+    {% if weekly and weekly.judgments %}
+    <div class="glass-card gold-border" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 class="section-title" style="margin-bottom: 0;">
+                <span class="icon">🎯</span>
+                今週のシグナル
+            </h2>
+            <a href="/weekly" class="btn-gold" style="font-size: 0.875rem; padding: 8px 16px;">
+                詳細を見る →
+            </a>
+        </div>
+        <div class="grid grid-3">
+            {% for j in weekly.judgments %}
+            <div class="glass-card" style="padding: 24px; text-align: center; border: 2px solid {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">{{ j.symbol }}</p>
+                <p style="font-size: 2.5rem; margin-bottom: 4px;">
+                    {% if j.judgment == 'BUY' %}📈{% elif j.judgment == 'SELL' %}📉{% else %}⏸️{% endif %}
+                </p>
+                <p style="font-size: 1.8rem; font-weight: 900; color: {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+                    {{ j.judgment }}
+                </p>
+                <p style="font-size: 0.9rem; color: var(--gold); font-weight: 700; margin-top: 4px;">
+                    信頼度 {{ j.confidence }}%
+                </p>
+                <!-- 信頼度バー -->
+                <div style="margin-top: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; height: 4px;">
+                    <div style="width: {{ j.confidence }}%; height: 4px; border-radius: 4px; background: {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};"></div>
+                </div>
+                {% if j.rationale_short %}
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.4;">{{ j.rationale_short }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <p style="font-size: 0.7rem; color: var(--text-muted); text-align: right; margin-top: 12px;">
+            更新: {{ weekly.updated }}
+        </p>
+    </div>
+    {% endif %}
+
     <!-- チャートセクション -->
     <div class="grid grid-2">
         <!-- ゴールドチャート -->
@@ -121,26 +162,24 @@
             </a>
         </div>
         <div class="grid grid-4">
+            {% if stocks and stocks.us %}
+            {% for s in stocks.us[:2] %}
             <div class="glass-card" style="padding: 16px; text-align: center;">
-                <p style="font-size: 0.75rem; color: var(--text-muted);">🇺🇸 LMT</p>
-                <p style="font-size: 1.25rem; font-weight: 700;">$502.30</p>
-                <p style="font-size: 0.875rem; color: var(--success);">+2.1%</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇺🇸 {{ s.ticker }}</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">{{ s.price }}</p>
+                <p style="font-size: 0.875rem; color: {{ 'var(--success)' if '+' in s.change else 'var(--danger)' }};">{{ s.change }}</p>
             </div>
+            {% endfor %}
+            {% endif %}
+            {% if stocks and stocks.jp %}
+            {% for s in stocks.jp[:2] %}
             <div class="glass-card" style="padding: 16px; text-align: center;">
-                <p style="font-size: 0.75rem; color: var(--text-muted);">🇺🇸 RTX</p>
-                <p style="font-size: 1.25rem; font-weight: 700;">$98.45</p>
-                <p style="font-size: 0.875rem; color: var(--success);">+1.5%</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">🇯🇵 {{ s.name }}</p>
+                <p style="font-size: 1.25rem; font-weight: 700;">{{ s.price }}</p>
+                <p style="font-size: 0.875rem; color: {{ 'var(--success)' if '+' in s.change else 'var(--danger)' }};">{{ s.change }}</p>
             </div>
-            <div class="glass-card" style="padding: 16px; text-align: center;">
-                <p style="font-size: 0.75rem; color: var(--text-muted);">🇯🇵 三菱重工</p>
-                <p style="font-size: 1.25rem; font-weight: 700;">¥2,450</p>
-                <p style="font-size: 0.875rem; color: var(--success);">+3.2%</p>
-            </div>
-            <div class="glass-card" style="padding: 16px; text-align: center;">
-                <p style="font-size: 0.75rem; color: var(--text-muted);">🇯🇵 川崎重工</p>
-                <p style="font-size: 1.25rem; font-weight: 700;">¥5,890</p>
-                <p style="font-size: 0.875rem; color: var(--danger);">-0.8%</p>
-            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 
