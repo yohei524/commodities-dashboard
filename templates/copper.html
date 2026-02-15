@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}銅分析 | Gold Experience{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px;">
+
+    <!-- ヘッダー -->
+    <div class="glass-card" style="padding: 32px; border: 2px solid #B87333;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;">
+                    <span>🔶</span> <span style="color: #B87333;">COPPER</span> 分析
+                </h1>
+                <p style="color: var(--text-secondary);">
+                    銅価格とAI・再エネ需要
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 3rem; font-weight: 900; color: #B87333;">${{ data.price_usd | default('5.90') }}/lb</p>
+                <p style="color: var(--success); font-size: 1.25rem;">{{ data.change_pct | default('+0.3') }}%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 価格詳細 -->
+    <div class="grid grid-4">
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">COMEX銅</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #B87333;">${{ data.price_usd | default('5.90') }}/lb</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">LME銅</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #B87333;">${{ data.price_ton | default('12,987') }}/t</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">52週高値</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">${{ data.high_52w | default('6.20') }}</p>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">52週安値</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">${{ data.low_52w | default('4.00') }}</p>
+        </div>
+    </div>
+
+    <!-- チャート -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📈</span>
+            リアルタイムチャート（COMEX銅）
+        </h2>
+        <div class="tradingview-widget-container" style="width: 800px; height: 600px; margin: 0 auto;">
+            <div id="tradingview_copper" style="height: 100%; width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- 需要ドライバー -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🔋</span>
+            銅の需要ドライバー
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; border-left: 3px solid #B87333;">
+                <h3 style="font-weight: 700; color: #B87333; margin-bottom: 12px;">AIデータセンター</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>AI向けDCは従来の<strong>3-5倍</strong>の銅を消費</li>
+                    <li>年間需要 ~40万トン、2028年ピーク時57万トン</li>
+                    <li>電力インフラ・冷却システムに大量の銅配線</li>
+                    <li>NVIDIA・Microsoft・Googleが大規模DC建設中</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; border-left: 3px solid var(--success);">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">エネルギー転換</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>EV</strong>：1台あたり83kg（ICE車の4倍）</li>
+                    <li><strong>太陽光</strong>：1MWあたり5.5トンの銅</li>
+                    <li><strong>風力</strong>：洋上風力は大量の銅ケーブル</li>
+                    <li><strong>送電網</strong>：グリッド拡張で需要増</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 需給バランス -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">📊</span>
+            需給バランス
+        </h2>
+        <div class="grid grid-2">
+            <div style="padding: 20px; background: rgba(184, 115, 51, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: #B87333; margin-bottom: 12px;">供給サイドの課題</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>ICSG予測：2026年は<strong>15万トンの供給不足</strong></li>
+                    <li>チリ・ペルー・インドネシアの鉱山障害</li>
+                    <li>新規鉱山開発に10年以上のリードタイム</li>
+                    <li>鉱石品位の低下（グリーンフィールド不足）</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; background: rgba(40, 167, 69, 0.1); border-radius: 12px;">
+                <h3 style="font-weight: 700; color: var(--success); margin-bottom: 12px;">需要見通し</h3>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+                    <li>中国：世界の精錬銅の50%超を消費</li>
+                    <li>AI+再エネで構造的な需要増トレンド</li>
+                    <li>インド・東南アジアのインフラ投資</li>
+                    <li>中国旧正月後の需要回復に注目</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- アナリスト予想 -->
+    <div class="glass-card" style="padding: 24px;">
+        <h2 class="section-title">
+            <span class="icon">🎯</span>
+            アナリスト予想（2026年）
+        </h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>機関</th>
+                    <th>予想価格</th>
+                    <th>見通し</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: 600;">シティグループ</td>
+                    <td style="color: var(--success); font-weight: 700;">$13,000/t（Q1）→ $15,000/t（Q2）</td>
+                    <td>AI需要と供給不足で大幅上昇</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">JPモルガン</td>
+                    <td style="color: var(--success); font-weight: 700;">$12,500/t（Q2）</td>
+                    <td>年平均$12,075/t。構造的強気</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">ゴールドマン・サックス</td>
+                    <td style="color: var(--warning); font-weight: 700;">高値圏から若干の調整</td>
+                    <td>記録的高値からの反落リスクあるも高水準維持</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 私の見解 -->
+    <div class="glass-card" style="padding: 24px; border: 2px solid #B87333;">
+        <h2 class="section-title">
+            <span class="icon">💭</span>
+            私の見解（LINE限定）
+        </h2>
+        <div style="padding: 20px; background: rgba(184, 115, 51, 0.05); border-radius: 12px;">
+            <p style="color: var(--text-primary); line-height: 1.8;">
+                {{ data.my_view | default('銅はAI・再エネ需要で構造的な上昇トレンド。押し目買い方針。') }}
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+new TradingView.widget({
+    "container_id": "tradingview_copper",
+    "symbol": "COMEX:HG1!",
+    "interval": "D",
+    "timezone": "Asia/Tokyo",
+    "theme": "dark",
+    "style": "1",
+    "locale": "ja",
+    "toolbar_bg": "#1A1A2E",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "save_image": false,
+    "height": 600,
+    "width": 800,
+    "autosize": false
+});
+</script>
+{% endblock %}

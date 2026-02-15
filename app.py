@@ -46,6 +46,12 @@ def oil():
     oil_data = load_json('oil_analysis.json')
     return render_template('oil.html', data=oil_data)
 
+@app.route('/copper')
+def copper():
+    """銅詳細ページ"""
+    copper_data = load_json('copper_analysis.json')
+    return render_template('copper.html', data=copper_data)
+
 @app.route('/defense-stocks')
 def defense_stocks():
     """軍需株ページ"""

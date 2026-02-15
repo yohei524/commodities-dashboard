@@ -28,6 +28,15 @@
       "stop": "-",
       "color": "oil",
       "rationale_short": "$58-66レンジ膠着。在庫急増vs中東リスク。方向感なし。ノーポジ推奨"
+    },
+    {
+      "symbol": "COPPER",
+      "judgment": "BUY",
+      "confidence": 75,
+      "target": "6.20",
+      "stop": "5.50",
+      "color": "copper",
+      "rationale_short": "AI DC需要+供給不足15万トン。Citi $13,000/t予想。押し目買い"
     }
   ],
   "technicals": [
@@ -60,6 +69,16 @@
       "support": 58.00,
       "resistance": 67.00,
       "trend": "neutral"
+    },
+    {
+      "symbol": "COPPER",
+      "price": 5.90,
+      "ma20": 5.75,
+      "ma50": 5.40,
+      "rsi": 58,
+      "support": 5.50,
+      "resistance": 6.20,
+      "trend": "up"
     }
   ],
   "bullish_factors": [
@@ -118,6 +137,10 @@
     {
       "symbol": "WTI",
       "reasoning": "$58-66レンジの膠着状態。イラン緊張が支えだが、EIA年間予想$58/bblと需要減退見通しが上値を抑える。在庫は先週1,340万バレル増の大幅増。方向感なし。レンジブレイク待ち。今週はNFP・CPIに振らされるリスクあり。ノーポジ推奨。"
+    },
+    {
+      "symbol": "COPPER",
+      "reasoning": "$5.90/lb、YoY+26.6%。AIデータセンター需要が従来の3-5倍の銅を消費し、構造的需要増。ICSG予測で2026年は15万トンの供給不足。チリ・ペルー・インドネシアの鉱山障害も供給サイド圧迫。Citi $13,000/t、JPM $12,500/t予想。ただし中国旧正月で一時的に需要鈍化。押し目買い方針。利確$6.20、損切り$5.50。"
     }
   ]
 }

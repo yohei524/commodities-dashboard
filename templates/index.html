@@ -14,7 +14,7 @@
     </div>
 
     <!-- 価格パネル -->
-    <div class="grid grid-4">
+    <div class="grid grid-5">
         <!-- ゴールド -->
         <a href="/gold" class="glass-card price-card gold-border" style="text-decoration: none;">
             <div class="icon">🥇</div>
@@ -32,6 +32,16 @@
             <div class="price silver-gradient">¥{{ prices.silver.price_jpy | default('644') }}</div>
             <div class="change {{ 'up' if prices.silver.change_pct | default(0) > 0 else 'down' }}">
                 {% if prices.silver.change_pct | default(0) > 0 %}+{% endif %}{{ prices.silver.change_pct | default('+2.1') }}%
+            </div>
+        </a>
+
+        <!-- 銅 -->
+        <a href="/copper" class="glass-card price-card" style="text-decoration: none;">
+            <div class="icon">🔶</div>
+            <div class="label">Copper / ポンド</div>
+            <div class="price" style="color: #B87333;">${{ prices.copper.price_usd | default('5.90') }}</div>
+            <div class="change {{ 'up' if prices.copper.change_pct | default(0) > 0 else 'down' }}">
+                {% if prices.copper.change_pct | default(0) > 0 %}+{% endif %}{{ prices.copper.change_pct | default('+0.3') }}%
             </div>
         </a>
 
@@ -68,7 +78,7 @@
                 詳細を見る →
             </a>
         </div>
-        <div class="grid grid-3">
+        <div class="grid grid-4">
             {% for j in weekly.judgments %}
             <div class="glass-card" style="padding: 24px; text-align: center; border: 2px solid {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">{{ j.symbol }}</p>
