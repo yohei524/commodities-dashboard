@@ -18,7 +18,7 @@
         <!-- ゴールド -->
         <a href="/gold" class="glass-card price-card gold-border" style="text-decoration: none;">
             <div class="icon">🥇</div>
-            <div class="label">Gold / グラム</div>
+            <div class="label">Gold / oz</div>
             <div class="price gold-gradient">¥{{ prices.gold.price_jpy | default('29,815') }}</div>
             <div class="change {{ 'up' if prices.gold.change_pct | default(0) > 0 else 'down' }}">
                 {% if prices.gold.change_pct | default(0) > 0 %}+{% endif %}{{ prices.gold.change_pct | default('+1.2') }}%
@@ -28,7 +28,7 @@
         <!-- シルバー -->
         <a href="/silver" class="glass-card price-card silver-border" style="text-decoration: none;">
             <div class="icon">🥈</div>
-            <div class="label">Silver / グラム</div>
+            <div class="label">Silver / oz</div>
             <div class="price silver-gradient">¥{{ prices.silver.price_jpy | default('644') }}</div>
             <div class="change {{ 'up' if prices.silver.change_pct | default(0) > 0 else 'down' }}">
                 {% if prices.silver.change_pct | default(0) > 0 %}+{% endif %}{{ prices.silver.change_pct | default('+2.1') }}%
@@ -80,12 +80,12 @@
         </div>
         <div class="grid grid-4">
             {% for j in weekly.judgments %}
-            <div class="glass-card" style="padding: 24px; text-align: center; border: 2px solid {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+            <div class="glass-card" style="padding: 24px; text-align: center; border: 2px solid {% if 'BUY' in j.judgment %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">{{ j.symbol }}</p>
                 <p style="font-size: 2.5rem; margin-bottom: 4px;">
-                    {% if j.judgment == 'BUY' %}📈{% elif j.judgment == 'SELL' %}📉{% else %}⏸️{% endif %}
+                    {% if 'BUY' in j.judgment %}📈{% elif j.judgment == 'SELL' %}📉{% else %}⏸️{% endif %}
                 </p>
-                <p style="font-size: 1.8rem; font-weight: 900; color: {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
+                <p style="font-size: 1.8rem; font-weight: 900; color: {% if 'BUY' in j.judgment %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};">
                     {{ j.judgment }}
                 </p>
                 <p style="font-size: 0.9rem; color: var(--gold); font-weight: 700; margin-top: 4px;">
@@ -93,7 +93,7 @@
                 </p>
                 <!-- 信頼度バー -->
                 <div style="margin-top: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; height: 4px;">
-                    <div style="width: {{ j.confidence }}%; height: 4px; border-radius: 4px; background: {% if j.judgment == 'BUY' %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};"></div>
+                    <div style="width: {{ j.confidence }}%; height: 4px; border-radius: 4px; background: {% if 'BUY' in j.judgment %}var(--success){% elif j.judgment == 'SELL' %}var(--danger){% else %}var(--warning){% endif %};"></div>
                 </div>
                 {% if j.rationale_short %}
                 <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.4;">{{ j.rationale_short }}</p>
@@ -206,17 +206,17 @@
         </div>
         <div class="grid grid-2">
             <div style="padding: 16px; border-left: 3px solid var(--gold);">
-                <h3 style="font-weight: 700; margin-bottom: 8px; color: var(--gold);">2026年2月の運勢</h3>
+                <h3 style="font-weight: 700; margin-bottom: 8px; color: var(--gold);">2026年3月の運勢</h3>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                    甲寅月。木の気が強まり、新しい動きが出やすい時期。地政学的には「動」の気配。
-                    金銀は調整後の上昇トレンド継続を示唆。
+                    辛卯月。金と木の気が衝突する配置。隠れていたリスクが表面化しやすい。
+                    2/28のイラン攻撃はこの転換点の前触れ。金は地政学リスクが五行の剋を上回る。
                 </p>
             </div>
             <div style="padding: 16px; border-left: 3px solid var(--silver);">
                 <h3 style="font-weight: 700; margin-bottom: 8px; color: var(--silver);">注目タイミング</h3>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                    2/4（立春）、2/19（雨水）前後は相場の転換点になりやすい。
-                    特に2/15-20は緊張が高まりやすい配置。
+                    3/5（啓蟄）＝隠れたリスクが地上に出る日。3/20（春分）まで不安定。
+                    ポジションは小さく、利確は早めに。3/17-18 FOMC注目。
                 </p>
             </div>
         </div>

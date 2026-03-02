@@ -26,8 +26,8 @@
     <!-- 価格詳細 -->
     <div class="grid grid-4">
         <div class="glass-card" style="padding: 20px; text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.875rem;">国内小売価格</p>
-            <p style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">¥{{ data.price_jpy | default('29,815') }}/g</p>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">円建て（/oz）</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">¥{{ data.price_jpy | default('839,950') }}/oz</p>
         </div>
         <div class="glass-card" style="padding: 20px; text-align: center;">
             <p style="color: var(--text-muted); font-size: 0.875rem;">NY金先物</p>
@@ -35,11 +35,11 @@
         </div>
         <div class="glass-card" style="padding: 20px; text-align: center;">
             <p style="color: var(--text-muted); font-size: 0.875rem;">52週高値</p>
-            <p style="font-size: 1.5rem; font-weight: 700;">¥{{ data.high_52w | default('30,200') }}</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">${{ data.high_52w | default('5,408') }}/oz</p>
         </div>
         <div class="glass-card" style="padding: 20px; text-align: center;">
             <p style="color: var(--text-muted); font-size: 0.875rem;">52週安値</p>
-            <p style="font-size: 1.5rem; font-weight: 700;">¥{{ data.low_52w | default('24,500') }}</p>
+            <p style="font-size: 1.5rem; font-weight: 700;">${{ data.low_52w | default('2,500') }}/oz</p>
         </div>
     </div>
 
@@ -94,8 +94,8 @@
             <div style="padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 12px;">
                 <h3 style="font-weight: 700; color: var(--gold); margin-bottom: 8px;">史上最高値圏で推移</h3>
                 <p style="color: var(--text-secondary); line-height: 1.7;">
-                    金価格は史上最高値圏（国内小売約3万円/g、NY先物2800ドル/oz付近）で推移。
-                    中東情勢、ウクライナ戦争、中央銀行の買い増しが下支え。
+                    金価格は$5,350/oz、年初来+87%の歴史的暴騰。米イスラエルのイラン攻撃、
+                    ホルムズ海峡封鎖危機でセーフヘイブン需要が爆発。WF/JPM年末$6,300予想。
                 </p>
             </div>
             <div style="padding: 20px; background: rgba(192, 192, 192, 0.1); border-radius: 12px;">
