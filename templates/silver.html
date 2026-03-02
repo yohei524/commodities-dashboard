@@ -17,7 +17,7 @@
                 </p>
             </div>
             <div style="text-align: right;">
-                <p style="font-size: 3rem; font-weight: 900;" class="silver-gradient">¥{{ data.price_jpy | default('644') }}</p>
+                <p style="font-size: 3rem; font-weight: 900;" class="silver-gradient">${{ data.price_usd | default('94.50') }}/oz</p>
                 <p style="color: var(--success); font-size: 1.25rem;">+{{ data.change_pct | default('2.1') }}%</p>
             </div>
         </div>

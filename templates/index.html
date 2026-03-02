@@ -19,7 +19,7 @@
         <a href="/gold" class="glass-card price-card gold-border" style="text-decoration: none;">
             <div class="icon">🥇</div>
             <div class="label">Gold / oz</div>
-            <div class="price gold-gradient">¥{{ prices.gold.price_jpy | default('29,815') }}</div>
+            <div class="price gold-gradient">${{ prices.gold.price_usd | default('5,350') }}</div>
             <div class="change {{ 'up' if prices.gold.change_pct | default(0) > 0 else 'down' }}">
                 {% if prices.gold.change_pct | default(0) > 0 %}+{% endif %}{{ prices.gold.change_pct | default('+1.2') }}%
             </div>
@@ -29,7 +29,7 @@
         <a href="/silver" class="glass-card price-card silver-border" style="text-decoration: none;">
             <div class="icon">🥈</div>
             <div class="label">Silver / oz</div>
-            <div class="price silver-gradient">¥{{ prices.silver.price_jpy | default('644') }}</div>
+            <div class="price silver-gradient">${{ prices.silver.price_usd | default('94.50') }}</div>
             <div class="change {{ 'up' if prices.silver.change_pct | default(0) > 0 else 'down' }}">
                 {% if prices.silver.change_pct | default(0) > 0 %}+{% endif %}{{ prices.silver.change_pct | default('+2.1') }}%
             </div>
