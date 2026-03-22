@@ -100,6 +100,14 @@ def weekly():
     weekly_data = load_json('weekly_outlook.json')
     return render_template('weekly.html', data=weekly_data)
 
+@app.route('/reel')
+def reel():
+    """リール用ダッシュボード枠"""
+    prices = load_json('prices.json')
+    return render_template('reel.html',
+                          prices=prices,
+                          today=datetime.now().strftime('%Y.%m.%d'))
+
 @app.route('/history')
 def history():
     """過去イベント検証ページ"""

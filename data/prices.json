@@ -1,26 +1,26 @@
 {
   "gold": {
-    "price_jpy": "805,000",
-    "price_usd": "5,125",
-    "change_pct": -4.2,
-    "high_52w": "5,408",
+    "price_jpy": "715,000",
+    "price_usd": "4,503",
+    "change_pct": -3.2,
+    "high_52w": "5,423",
     "low_52w": "2,500",
-    "updated": "2026-03-09"
+    "updated": "2026-03-22"
   },
   "silver": {
-    "price_jpy": "13,150",
-    "price_usd": "84.00",
+    "price_jpy": "10,800",
+    "price_usd": "67.90",
     "change_pct": -11.1,
-    "high_52w": "100.00",
+    "high_52w": "121.67",
     "low_52w": "28.00",
-    "updated": "2026-03-09"
+    "updated": "2026-03-22"
   },
   "oil": {
-    "price_usd": "119.50",
-    "change_pct": 65.9,
+    "price_usd": "97.36",
+    "change_pct": -1.4,
     "high_52w": "119.50",
     "low_52w": "58.32",
-    "updated": "2026-03-09"
+    "updated": "2026-03-22"
   },
   "copper": {
     "price_usd": "5.90",
@@ -28,6 +28,17 @@
     "change_pct": -0.8,
     "high_52w": "6.20",
     "low_52w": "4.00",
-    "updated": "2026-03-09"
+    "updated": "2026-03-22"
+  },
+  "usdjpy": {
+    "price": "159.38",
+    "change_pct": 0.3,
+    "updated": "2026-03-22"
+  },
+  "defense_etf": {
+    "name": "ITA",
+    "price": "231.49",
+    "change_pct": -2.3,
+    "updated": "2026-03-22"
   }
 }
