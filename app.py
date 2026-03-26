@@ -115,5 +115,10 @@ def history():
     sanmei_data = load_json('sanmei_record.json')
     return render_template('history.html', history=history_data, sanmei=sanmei_data)
 
+@app.route('/備蓄')
+def備蓄():
+    """備蓄アイテムページ"""
+    return render_template('備蓄.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
