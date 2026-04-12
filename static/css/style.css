@@ -297,13 +297,75 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .container {
+        padding: 16px 12px;
+    }
+
+    /* ナビ：横スクロール式に変更 */
+    .nav {
+        padding: 10px 0;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 12px;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
     .nav-links {
-        gap: 8px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 4px;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links li {
+        flex-shrink: 0;
     }
 
     .nav-links a {
-        padding: 8px 12px;
-        font-size: 0.875rem;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    /* 価格カード */
+    .price-card .icon { font-size: 2rem; }
+    .price-card .price { font-size: 1.4rem; }
+
+    /* テーブル：スマホ対応 */
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* セクションタイトル */
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    /* フッター */
+    .footer {
+        font-size: 0.75rem;
+        margin-top: 32px;
     }
 }
 
