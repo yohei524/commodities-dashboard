@@ -179,6 +179,27 @@ body {
     background: rgba(212, 175, 55, 0.15);
 }
 
+/* 備蓄タブ強調（収入源の柱） */
+.nav-links a.nav-bichiku {
+    background: linear-gradient(135deg, #D4AF37 0%, #F5E6B8 50%, #B8860B 100%);
+    color: #1A1A2E !important;
+    font-weight: 700;
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+    animation: bichiku-pulse 2.4s ease-in-out infinite;
+}
+
+.nav-links a.nav-bichiku:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.8);
+    color: #1A1A2E !important;
+    background: linear-gradient(135deg, #F5E6B8 0%, #D4AF37 50%, #B8860B 100%);
+}
+
+@keyframes bichiku-pulse {
+    0%, 100% { box-shadow: 0 0 16px rgba(212, 175, 55, 0.5); }
+    50% { box-shadow: 0 0 28px rgba(212, 175, 55, 0.9); }
+}
+
 /* コンテナ */
 .container {
     max-width: 1400px;
