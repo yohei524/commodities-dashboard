@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}金の買い方 4パターン比較 | Gold Experience{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 32px; max-width: 760px; margin: 0 auto;">
+
+    <!-- PR表記 -->
+    <p style="font-size: 0.75rem; color: var(--text-muted);">※本ページにはアフィリエイトリンク（PR）を含みます</p>
+
+    <!-- タイトル -->
+    <div class="glass-card gold-border" style="padding: 32px;">
+        <h1 style="font-size: 1.6rem; font-weight: 900; line-height: 1.5;">
+            金 買いたい人へ<br>
+            <span class="gold-gradient">4つの方法を比較しました</span>
+        </h1>
+    </div>
+
+    <!-- 導入 -->
+    <div class="glass-card" style="padding: 28px;">
+        <p style="color: var(--text-primary); line-height: 2;">
+            金価格がここまで来て<br>
+            「今から買うのは怖い」という人が一番多いと思います<br><br>
+            僕の考えは単純です<br>
+            <strong style="color: var(--gold);">一括で買わない 毎月ちょっとずつ買う</strong><br><br>
+            ドルコスト平均法<br>
+            つまり 毎月同じ金額で買い続ける方法です<br>
+            高い月は少なく 安い月は多く買える<br>
+            高値掴みのリスクが自動で薄まる仕組み<br><br>
+            その上で「どこで買うか」 4パターン比較します
+        </p>
+    </div>
+
+    <!-- ① 純金積立 -->
+    <div class="glass-card" style="padding: 28px; border-left: 4px solid var(--gold);">
+        <h2 style="font-size: 1.2rem; font-weight: 900; color: var(--gold); margin-bottom: 16px;">
+            ① 純金積立（証券会社）月1,000円〜
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 2;">
+            SBI証券・楽天証券・マネックス証券<br>
+            どこも月1,000円から積み立てられます<br><br>
+            楽天証券は100グラム貯まったら現物で受け取れます<br>
+            コツコツ積んで 最後は手元に持つ これができるのはここの強み<br><br>
+            注意点はひとつ <strong>「特定保管」か「消費寄託」か</strong><br>
+            特定保管なら 会社が潰れても金はあなたのもの<br>
+            消費寄託なら 所有権が会社に移るので 破綻時に戻らない可能性がある<br>
+            契約前にここだけ確認してください
+        </p>
+        <!-- AFFILIATE: アクセストレード提携承認後、アフィリエイトリンクに差し替え -->
+        <a href="https://www.rakuten-sec.co.jp/web/gold/" target="_blank" rel="noopener" class="btn-gold" style="display: inline-block; margin-top: 16px; padding: 12px 32px; border-radius: 8px; font-weight: 700; text-decoration: none;">
+            楽天証券 金・プラチナ取引 →
+        </a>
+    </div>
+
+    <!-- ② 国内地金商 -->
+    <div class="glass-card" style="padding: 28px; border-left: 4px solid var(--silver);">
+        <h2 style="font-size: 1.2rem; font-weight: 900; margin-bottom: 16px;">
+            ② 国内地金商（田中貴金属など）月3,000円〜
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 2;">
+            老舗の安心感<br>
+            田中貴金属は金・プラチナが特定保管です 店頭で現物も買えます<br><br>
+            <span style="color: var(--text-muted);">正直に言うと 紹介制度がないので ここを選ばれても僕には1円も入りません<br>
+            それでも選択肢としては有力です</span>
+        </p>
+    </div>
+
+    <!-- ③ 手元に置く -->
+    <div class="glass-card" style="padding: 28px; border-left: 4px solid var(--silver);">
+        <h2 style="font-size: 1.2rem; font-weight: 900; margin-bottom: 16px;">
+            ③ 手元に置く（地金・金貨を買い切り）
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 2;">
+            楽天市場でも金貨・小型インゴットが買えます<br>
+            手元に置く安心感は何にも代えがたい<br><br>
+            ただし小さいバーほど手数料が割高<br>
+            盗難・保管の問題は全部自分持ち<br>
+            自宅保管するなら 置き場所は誰にも言わないこと
+        </p>
+        <!-- AFFILIATE: 楽天アフィリエイトリンクに差し替え（上限1,000円/商品） -->
+    </div>
+
+    <!-- ④ 海外保管型 -->
+    <div class="glass-card" style="padding: 28px; border-left: 4px solid var(--text-muted);">
+        <h2 style="font-size: 1.2rem; font-weight: 900; margin-bottom: 16px;">
+            ④ 海外保管型（参考）
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 2;">
+            ロンドンやチューリッヒの保管庫に自分名義の現物を持つサービスもあります<br>
+            コストは安いが 手元には来ない 手続きは英語<br>
+            面倒が嫌いな人には向かないので 参考まで
+        </p>
+    </div>
+
+    <!-- まとめ -->
+    <div class="glass-card gold-border" style="padding: 28px;">
+        <h2 style="font-size: 1.2rem; font-weight: 900; color: var(--gold); margin-bottom: 16px;">
+            まとめ
+        </h2>
+        <p style="color: var(--text-primary); line-height: 2;">
+            僕なら<br>
+            まず①で月1,000円から始めて<br>
+            値動きに慣れてから③を検討します<br><br>
+            <strong style="color: var(--gold);">一括で買わない レバレッジをかけない 毎月同じ額を淡々と</strong><br><br>
+            これ以外にコツはないと思ってます<br>
+            知らんけど
+        </p>
+    </div>
+
+    <!-- 注意書き -->
+    <div style="padding: 16px;">
+        <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.8;">
+            ※投資助言ではありません 買うかどうかはあなたの判断で<br>
+            ※価格・条件は各社公式サイトで最新を確認してください（2026年7月時点の情報です）
+        </p>
+    </div>
+
+</div>
+{% endblock %}
